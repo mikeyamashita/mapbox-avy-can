@@ -1,4 +1,3 @@
-import { Button } from "@nextui-org/button";
 import Link from 'next/link'
 
 import { getAreasDTO } from './data/area-dto';

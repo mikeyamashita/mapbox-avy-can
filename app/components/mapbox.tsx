@@ -5,12 +5,17 @@ import { useEffect, useRef } from 'react';
 import * as mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import { selectAllAreas } from '../state/area/areaSlice'
+import Area from '../models/area';
+
 export default function Mapbox() {
 
     const mapContainer = useRef(null);
     const map = useRef(null);
 
+
     useEffect(() => {
+
 
         if (map.current) return; // initialize map only once
 
