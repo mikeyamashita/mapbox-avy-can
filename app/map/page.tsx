@@ -17,7 +17,7 @@ export default function Page() {
             accessToken: process.env.NEXT_PUBLIC_MAPBOX_KEY,
             container: mapContainer.current, // container ID
             style: 'mapbox://styles/mapbox/streets-v12', // style URL
-            center: [-113.4937, 53.5461], // starting position [lng, lat]
+            center: [-106.3468, 56.1304], // starting position [lng, lat]
             zoom: 6, // starting zoom
         });
 
@@ -34,8 +34,9 @@ export default function Page() {
 
         map.current.on('load', () => {
             console.log('A load event occurred.');
-            // map.removeSource('maine')
-            // map.getSource('maine12345').setData(data);
+
+            geolocate.trigger();
+
             // Add a data source containing GeoJSON data.
             map.current.addSource('maine', {
                 'type': 'geojson',
