@@ -1,4 +1,4 @@
-import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import { getAreasDTO } from '../../data/area-dto';
 import Area from "../../models/area";
@@ -21,11 +21,8 @@ export const areaSlice = createSlice({
     name: 'areas',
     initialState,
     reducers: {
-
-    },
+    }
 })
-
-export const selectAllAreas = state => state.areas.value
 
 export const fetchAreas = createAsyncThunk('fetchAreas', async () => {
     const response = await getAreasDTO();
