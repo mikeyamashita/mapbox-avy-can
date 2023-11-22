@@ -1,21 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit'
-import areaSlice from './state/area/areaSlice.ts'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { areasApi } from './data/area-service';
 
-
-
+import areaSlice from './state/area/areaSlice.ts'
+import { AvalancheCanadaApi } from './data/avalanche-canada-service'
 
 export const store = configureStore({
     reducer: {
         areas: areaSlice,
         // Add the generated reducer as a specific top-level slice
-        [areasApi.reducerPath]: areasApi.reducer,
+        [AvalancheCanadaApi.reducerPath]: AvalancheCanadaApi.reducer,
     },
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(areasApi.middleware),
+        getDefaultMiddleware().concat(
+            AvalancheCanadaApi.middleware
+        ),
 })
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
