@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ReduxProvider } from './providers/ReduxProvider';
 import { UIProvider } from './providers/UIProvider';
-import './globals.css'
+import './globals.scss'
 
 const APP_NAME = "AvyMap Test";
 const APP_DEFAULT_TITLE = "Mapbox Nextjs";

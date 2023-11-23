@@ -4,6 +4,7 @@ import React from 'react';
 import { useEffect, useRef } from 'react';
 import * as mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import styles from './mapbox.module.scss'
 
 import { useGetAllAreasQuery, useGetMetadataQuery } from '../data/avalanche-canada-service';
 
@@ -75,9 +76,6 @@ export default function Mapbox() {
                     }
                 });
 
-
-
-
                 getMetadataData.current.forEach(data => {
                     if (features.id === data.area.id) {
                         console.log('console log metadata data', data.owner.display)
@@ -86,15 +84,6 @@ export default function Mapbox() {
                         const description = data.owner.display;
                         console.log('console log description', description)
                         map.current.on('click', features.id, (e) => {
-                            console.log('console log e', e)
-
-                            // Ensure that if the map is zoomed out such that multiple
-                            // copies of the feature are visible, the popup appears
-                            // over the copy being pointed to.
-                            // while (Math.abs(e.lngLat.lng - coordinates.longitude) > 180) {
-                            //     coordinates.longitude += e.lngLat.lng > coordinates.longitude ? 360 : -360;
-                            // }
-
                             let mapboxlngLat = { 'lng': coordinates.longitude, 'lat': coordinates.latitude }
                             console.log(mapboxlngLat)
                             new mapboxgl.Popup({ closeButton: false })
@@ -106,43 +95,7 @@ export default function Mapbox() {
                 });
             })
         })
-
-
-
-
-        // map.current.on('mouseenter', features.id, (e) => {
-        //     console.log(e)
-        //     // Change the cursor style as a UI indicator.
-        //     map.current.getCanvas().style.cursor = 'pointer';
-
-        //     getMetadataData.current.forEach(data => {
-        //         // if (features.id === data.area.id) {
-        //         console.log('console log metadata data', data.owner.display)
-        //         // Copy coordinates array.
-        //         const coordinates = data.centroid;
-        //         const description = data.owner.display;
-
-        //         console.log('console log description', description)
-        //         // Ensure that if the map is zoomed out such that multiple
-        //         // copies of the feature are visible, the popup appears
-        //         // over the copy being pointed to.
-        //         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        //             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        //         }
-
-        //         // Populate the popup and set its coordinates
-        //         // based on the feature found.
-        //         popup.current.setLngLat(coordinates).setHTML(description).addTo(map.current);
-        //         // }
-        //     })
-
-        //     map.current.on('mouseleave', 'MultiPolygon', () => {
-        //         map.current.getCanvas().style.cursor = '';
-        //         popup.current.remove();
-        //     });
-        // })
-
     }, []);
 
-    return <div ref={mapContainer} id="mapbox" className="mapbox" style={{ height: '100vh', width: '100vw' }}></div>
+    return <div ref={mapContainer} id="mapbox" className={styles.mapbox}></div>
 }
