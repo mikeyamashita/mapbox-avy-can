@@ -7,12 +7,19 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from './mapbox.module.scss'
 
 import { useGetAllAreasQuery, useGetMetadataQuery } from '../data/avalanche-canada-service';
+import AreaComponenent from '../components/area.component'
+import Area from '../models/area'
 
-export default function Mapbox() {
+export default function Mapbox(props) {
 
     const mapContainer = useRef(null);
     const map = useRef(null);
     const popup = useRef(null)
+
+    console.log('console log cardPressed from top page', props.cardPressed)
+    props.cardPressed = (e) => {
+        console.log('console log cardPressed', e)
+    }
 
     const { data: getAreas, error: AreaError } = useGetAllAreasQuery()
     // console.log('console log areadata:', getAreas)
@@ -93,7 +100,22 @@ export default function Mapbox() {
                 });
             })
         })
-    }, []);
+    }, [])
 
-    return <div ref={mapContainer} id="mapbox" className={styles.mapbox}></div>
+    const cardPressed = (areaId) => {
+        console.log('console log cardPressed fcom mapbox', areaId)
+        getAreasData.current['features']?.forEach(features => {
+            if (features.id == areaId) {
+                map.current.fitBounds(features.bbox)
+            }
+        })
+    }
+
+
+    return (
+        <div>
+            <div ref={mapContainer} id="mapbox" className={styles.mapbox}></div>
+            <AreaComponenent cardPressed={cardPressed} />
+        </div>
+    )
 }

@@ -9,7 +9,7 @@ import styles from './area.module.scss';
 import AreaCard from './area-card'
 import Forecast from '../models/forecast';
 
-export default function Area() {
+export default function AreaComponent(event) {
 
     const { data: getForecastdata, error: ForecastError, isLoading } = useGetForecastsQuery()
 
@@ -25,8 +25,8 @@ export default function Area() {
             <div className={styles.scrollshadowContainer}>
                 <ScrollShadow hideScrollBar className={styles.scrollshadowContainer}>
                     {forecast.current?.map((product: Forecast) => (
-                        <div className={styles.containerSnap} key={product.id}>
-                            <AreaCard data={product} isLoading={isLoading} />
+                        <div id={product.area.id} className={styles.containerSnap} key={product.id}>
+                            <AreaCard data={product} isLoading={isLoading} cardPressed={event.cardPressed} />
                         </div>
                     ))}
                 </ScrollShadow>

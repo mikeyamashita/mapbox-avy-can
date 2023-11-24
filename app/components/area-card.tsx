@@ -9,7 +9,7 @@ export default function AreaCard(forecastData) {
 
     return (
         <div style={{ height: '100px', padding: '10px', margin: '20px' }}>
-            <Card isPressable onPress={() => console.log("item pressed")}>
+            <Card isPressable onPress={() => forecastData.cardPressed(forecastData.data.area.id)}>
                 <CardBody>
                     <div>{forecastData.data.owner.display}</div>
                 </CardBody>
