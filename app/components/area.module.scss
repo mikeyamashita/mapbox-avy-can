@@ -8,9 +8,13 @@
 .scrollshadowContainer {
     width: 300px;
     height: 100px;
-    scroll-snap-type: y proximity;
+    -ms-scroll-snap-destination: 0 0;
+    scroll-snap-destination: 0 0;
+    -ms-scroll-snap-type: y mandatory;
+    scroll-snap-type: y mandatory;
 }
 
 .containerSnap {
     scroll-snap-align: center;
+    scroll-snap-stop: always;
 }

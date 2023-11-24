@@ -1,21 +1,17 @@
 'use client'
 
 import React from 'react';
-import Area from '../models/area';
-import { useGetMetadataQuery } from '../data/avalanche-canada-service';
 import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
-import styles from './area.module.scss';
 
-export default function AreaCard() {
+export default function AreaCard(forecastData) {
 
-    // const { data: getMetadata, error: MetadataError } = useGetMetadataQuery()
-    // console.log('console log metadata:', getMetadata)
+    if (forecastData.isLoading) return <div style={{ height: '100px', padding: '10px', margin: '20px' }}></div>
 
     return (
         <div style={{ height: '100px', padding: '10px', margin: '20px' }}>
-            <Card>
+            <Card isPressable onPress={() => console.log("item pressed")}>
                 <CardBody>
-                    <div>area card</div>
+                    <div>{forecastData.data.owner.display}</div>
                 </CardBody>
             </Card >
         </div >

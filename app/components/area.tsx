@@ -1,37 +1,34 @@
 'use client'
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { ScrollShadow } from "@nextui-org/react";
 
 import Area from '../models/area';
-import { useGetAllAreasQuery, useGetMetadataQuery } from '../data/avalanche-canada-service';
+import { useGetAllAreasQuery, useGetForecastsQuery, useGetMetadataQuery } from '../data/avalanche-canada-service';
 import styles from './area.module.scss';
 import AreaCard from './area-card'
+import Forecast from '../models/forecast';
 
 export default function Area() {
 
-    // const { data: getAreas, error: AreaError } = useGetAllAreasQuery()
-    // console.log('console log areadata:', getAreas)
+    const { data: getForecastdata, error: ForecastError, isLoading } = useGetForecastsQuery()
 
-    // const { data: getMetadata, error: MetadataError } = useGetMetadataQuery()
-    // console.log('console log metadata:', getMetadata)
+    let forecast = useRef(null)
+    if (getForecastdata)
+        forecast.current = getForecastdata
+    console.log('console log forecast:', forecast.current)
+
+    if (isLoading) <div></div>
 
     return (
         <div className={styles.area}>
             <div className={styles.scrollshadowContainer}>
                 <ScrollShadow hideScrollBar className={styles.scrollshadowContainer}>
-                    <div className={styles.containerSnap}>
-                        <AreaCard />
-                    </div>
-                    <div className={styles.containerSnap}>
-                        <AreaCard />
-                    </div>
-                    <div className={styles.containerSnap}>
-                        <AreaCard />
-                    </div>
-                    <div className={styles.containerSnap}>
-                        <AreaCard />
-                    </div>
+                    {forecast.current?.map((product: Forecast) => (
+                        <div className={styles.containerSnap} key={product.id}>
+                            <AreaCard data={product} isLoading={isLoading} />
+                        </div>
+                    ))}
                 </ScrollShadow>
             </div>
         </div>

@@ -15,14 +15,14 @@ export default function Mapbox() {
     const popup = useRef(null)
 
     const { data: getAreas, error: AreaError } = useGetAllAreasQuery()
-    console.log('console log areadata:', getAreas)
+    // console.log('console log areadata:', getAreas)
 
     let getAreasData = useRef(null)
     if (getAreas)
         getAreasData.current = getAreas
 
     const { data: getMetadata, error: MetadataError } = useGetMetadataQuery()
-    console.log('console log metadata:', getMetadata)
+    // console.log('console log metadata:', getMetadata)
 
     let getMetadataData = useRef(null)
     if (getMetadata)
@@ -54,10 +54,10 @@ export default function Mapbox() {
 
             let featureCollection;
             let metadataData;
-            console.log('console log getMetadataData:', getMetadataData.current)
+            // console.log('console log getMetadataData:', getMetadataData.current)
 
             metadataData = getMetadataData.current;
-            getAreasData.current['features'].forEach(features => {
+            getAreasData.current['features']?.forEach(features => {
                 featureCollection = features;
 
                 map.current.addSource(features.id, {
@@ -65,27 +65,25 @@ export default function Mapbox() {
                     'data': featureCollection
                 })
 
+                var randomColor = "#000000".replace(/0/g, function () { return (~~(Math.random() * 16)).toString(16); });
                 map.current.addLayer({
                     'id': features.id,
                     'type': 'fill',
                     'source': features.id, // reference the data source
                     'layout': {},
                     'paint': {
-                        'fill-color': '#' + Math.floor(Math.random() * 16777215).toString(16), // random color fill
+                        'fill-color': randomColor, // random color fill
                         'fill-opacity': 0.5
                     }
                 });
 
-                getMetadataData.current.forEach(data => {
+                getMetadataData.current?.forEach(data => {
                     if (features.id === data.area.id) {
-                        console.log('console log metadata data', data.owner.display)
                         // Copy coordinates array.
                         const coordinates = data.centroid;
                         const description = data.owner.display;
-                        console.log('console log description', description)
                         map.current.on('click', features.id, (e) => {
                             let mapboxlngLat = { 'lng': coordinates.longitude, 'lat': coordinates.latitude }
-                            console.log(mapboxlngLat)
                             new mapboxgl.Popup({ closeButton: false })
                                 .setLngLat(e.lngLat)
                                 .setHTML(description)
