@@ -1,25 +1,20 @@
 'use client'
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect, useRef } from 'react';
 import * as mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from './mapbox.module.scss'
 
 import { useGetAllAreasQuery, useGetMetadataQuery } from '../data/avalanche-canada-service';
-import AreaComponenent from '../components/area.component'
+import AreaComponenent from './area.component'
 import Area from '../models/area'
 
 export default function Mapbox(props) {
 
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const popup = useRef(null)
-
-    console.log('console log cardPressed from top page', props.cardPressed)
-    props.cardPressed = (e) => {
-        console.log('console log cardPressed', e)
-    }
+    const [areaId, setAreaId] = useState('');
 
     const { data: getAreas, error: AreaError } = useGetAllAreasQuery()
     // console.log('console log areadata:', getAreas)
@@ -86,15 +81,14 @@ export default function Mapbox(props) {
 
                 getMetadataData.current?.forEach(data => {
                     if (features.id === data.area.id) {
-                        // Copy coordinates array.
-                        const coordinates = data.centroid;
                         const description = data.owner.display;
                         map.current.on('click', features.id, (e) => {
-                            let mapboxlngLat = { 'lng': coordinates.longitude, 'lat': coordinates.latitude }
                             new mapboxgl.Popup({ closeButton: false })
                                 .setLngLat(e.lngLat)
                                 .setHTML(description)
                                 .addTo(map.current);
+                            areaIdClicked(features.id)
+                            setTimeout(() => { cardPressed(features.id) }, 500)
                         });
                     }
                 });
@@ -102,8 +96,9 @@ export default function Mapbox(props) {
         })
     }, [])
 
-    const cardPressed = (areaId) => {
-        console.log('console log cardPressed fcom mapbox', areaId)
+    // Events
+    function cardPressed(areaId) {
+        console.log('console log cardPressed from mapbox', areaId)
         getAreasData.current['features']?.forEach(features => {
             if (features.id == areaId) {
                 map.current.fitBounds(features.bbox)
@@ -111,11 +106,15 @@ export default function Mapbox(props) {
         })
     }
 
+    function areaIdClicked(areaid) {
+        setAreaId(areaid)
+        console.log("console log areaIdClicked from mapbox", areaId)
+    }
 
     return (
         <div>
             <div ref={mapContainer} id="mapbox" className={styles.mapbox}></div>
-            <AreaComponenent cardPressed={cardPressed} />
+            <AreaComponenent cardPressed={cardPressed} areaId={areaId} areaIdClicked={areaIdClicked} />
         </div>
     )
 }
