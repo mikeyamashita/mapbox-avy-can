@@ -7,8 +7,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from './mapbox.module.scss'
 
 import { useGetAllAreasQuery, useGetMetadataQuery } from '../data/avalanche-canada-service';
-import AreaComponenent from './area.component'
-import Area from '../models/area'
+import AreaComponenent from './area.component';
 
 export default function Mapbox(props) {
 

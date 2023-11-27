@@ -1,4 +1,6 @@
 .area {
+    display: flex;
+    justify-content: center;
     position: absolute;
     bottom: 0px;
     width: 100%;
@@ -6,12 +8,43 @@
 }
 
 .scrollshadowContainer {
-    min-width: 100%;
-    height: 350px;
     -ms-scroll-snap-destination: 0 0;
     scroll-snap-destination: 0 0;
     -ms-scroll-snap-type: y mandatory;
     scroll-snap-type: y mandatory;
+
+    .containerSnap {
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .scrollshadowContainer {
+        min-width: 100%;
+        height: 400px;
+    }
+    .cardContainer {
+        height: 400px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .scrollshadowContainer {
+        max-width: 67vw;
+        height: 350px;
+    }
+    .cardContainer {
+        height: 350px;
+    }
+}
+
+.scrollshadowContainer {
+    -ms-scroll-snap-destination: 0 0;
+    scroll-snap-destination: 0 0;
+    -ms-scroll-snap-type: y mandatory;
+    scroll-snap-type: y mandatory;
+
     .containerSnap {
         scroll-snap-align: center;
         scroll-snap-stop: always;
@@ -29,4 +62,16 @@
     }
     .btlContainer {
     }
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.cardContainer {
+    padding: 40px 10px 40px 10px;
+    margin: 10px;
+    display: flex;
 }

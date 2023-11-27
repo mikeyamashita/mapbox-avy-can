@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useRef } from 'react';
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, CardFooter, Button } from "@nextui-org/react";
 import { format } from 'date-fns';
+import { Navigation2 } from 'react-feather';
 
 import styles from './area.module.scss';
 
@@ -15,11 +16,21 @@ export default function AreaCard(forecastData) {
     if (forecastData.isLoading) return <div style={{ height: '100px', padding: '10px', margin: '20px' }}></div>
 
     return (
-        <div style={{ height: '350px', padding: '40px 10px 40px 10px', margin: '10px', display: 'flex' }}>
-            <Card style={{ width: '100%' }} isPressable isBlurred onPress={() => forecastData.cardPressed(forecastData.data.area.id)}>
+        <div className={styles.cardContainer}>
+            <Card style={{ width: '100%' }} isBlurred>
                 <CardHeader>
-                    <h1 className="text-large font-semibold leading-none text-default-600">{forecastData.data.owner.display}</h1> &nbsp; - &nbsp;
-                    <h1 className="text-medium tracking-tight text-default-400">{format(new Date(forecastData.data.report.dateIssued), 'MMMM do yyyy, h:mm:ss a')}</h1>
+                    <div className={styles.headerContainer}>
+                        <div>
+                            <h1 className="text-large font-semibold leading-none text-default-600">{forecastData.data.owner.display}</h1> &nbsp; - &nbsp;
+                            <h1 className="text-medium tracking-tight text-default-400">{format(new Date(forecastData.data.report.dateIssued), 'MMMM do yyyy, h:mm:ss a')}</h1>
+                        </div>
+                        <Button
+                            isIconOnly
+                            radius="full"
+                            onPress={() => forecastData.cardPressed(forecastData.data.area.id)}>
+                            <Navigation2 />
+                        </Button>
+                    </div>
                 </CardHeader>
                 <CardBody>
                     <div dangerouslySetInnerHTML={{ __html: forecastData.data.report.highlights }}></div>
