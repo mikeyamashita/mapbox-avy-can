@@ -1,3 +1,13 @@
+I created this PWA app as a Avalanche Canada clone while learning Nextjs 14, React 18, NextUI, Redux Toolkit.
+
+Uses Avalanche Canada's public api: https://docs.avalanche.ca/
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
