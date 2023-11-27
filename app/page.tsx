@@ -1,8 +1,12 @@
 import React from 'react';
-import Link from 'next/link'
+import Mapbox from './components/mapbox.component';
 
 
 export default async function Page() {
 
-  return <Link href="/map">map</Link>
+  return (
+    <div>
+      <Mapbox />
+    </div>
+  );
 }
