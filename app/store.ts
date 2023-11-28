@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
-import areaSlice from './state/area/areaSlice.ts'
 import { AvalancheCanadaApi } from './data/avalanche-canada-service'
 
 export const store = configureStore({
     reducer: {
-        areas: areaSlice,
         // Add the generated reducer as a specific top-level slice
         [AvalancheCanadaApi.reducerPath]: AvalancheCanadaApi.reducer,
     },

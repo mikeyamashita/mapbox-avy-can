@@ -5,10 +5,7 @@ export default interface Area {
             coordinates: [
                 [
                     [
-                        [
-                            lat: number,
-                            long: number
-                        ]
+                        [lat: number, long: number]
                     ]
                 ]
             ]

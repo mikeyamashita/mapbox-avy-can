@@ -1,4 +1,4 @@
-export default class Point {
+export default interface Point {
     lat: number;
     long: number;
 }

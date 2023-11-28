@@ -9,10 +9,6 @@ import styles from './area.module.scss';
 
 export default function AreaCard(forecastData: any) {
 
-    // let highlights = useRef(null)
-    // highlights.current = new DOMParser().parseFromString(forecastData.data.report.highlights, 'text/html')
-    // console.log('console log highlights', highlights.current)
-
     if (forecastData.isLoading) return <div style={{ height: '100px', padding: '10px', margin: '20px' }}></div>
 
     return (

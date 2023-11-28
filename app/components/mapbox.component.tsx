@@ -64,7 +64,7 @@ export default function Mapbox() {
                     // console.log('console log getMetadataData:', getMetadataData.current)
 
                     metadataData = getMetadataData.current;
-                    getAreasData.current.features?.forEach(features => {
+                    getAreasData.current.features?.forEach((features: any) => {
                         featureCollection = features;
 
                         map.current.addSource(features.id, {
@@ -84,10 +84,10 @@ export default function Mapbox() {
                             }
                         });
 
-                        getMetadataData.current?.forEach(data => {
+                        getMetadataData.current?.forEach((data: any) => {
                             if (features.id === data.area.id) {
                                 const description = data.owner.display;
-                                map.current.on('click', features.id, (e) => {
+                                map.current.on('click', features.id, (e: any) => {
                                     new mapboxgl.Popup({ closeButton: false })
                                         .setLngLat(e.lngLat)
                                         .setHTML(description)
@@ -107,7 +107,7 @@ export default function Mapbox() {
     // Events
     function cardPressed(areaId: number) {
         console.log('console log cardPressed from mapbox', areaId)
-        getAreasData.current['features']?.forEach(features => {
+        getAreasData.current['features']?.forEach((features: any) => {
             if (features.id == areaId) {
                 map.current.fitBounds(features.bbox)
             }
