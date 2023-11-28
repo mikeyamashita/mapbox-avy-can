@@ -14,6 +14,18 @@ Features
 deployed as a pwa to aws amplify: https://main.dvqwms1hblhmk.amplifyapp.com/
 <br>
 <br>
+<br>br>
+<br>
+TO DO
+- improve mobile view 
+- get pwa mobile install working properly
+- colour code ratings and area shading
+- refactor to react / redux / nextjs best practices
+
+<br>br>
+<br>
+<br>br>
+<br>
 <br>
 <br>
 <br>
