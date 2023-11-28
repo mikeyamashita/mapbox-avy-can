@@ -7,7 +7,7 @@ import { Navigation2 } from 'react-feather';
 
 import styles from './area.module.scss';
 
-export default function AreaCard(forecastData) {
+export default function AreaCard(forecastData: any) {
 
     // let highlights = useRef(null)
     // highlights.current = new DOMParser().parseFromString(forecastData.data.report.highlights, 'text/html')

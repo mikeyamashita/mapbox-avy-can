@@ -6,23 +6,19 @@ import * as mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import styles from './mapbox.module.scss'
 
-import { useGetAllAreasQuery, useGetMetadataQuery, useLazyGetAllAreasQuery } from '../data/avalanche-canada-service';
+import { useGetMetadataQuery, useLazyGetAllAreasQuery } from '../data/avalanche-canada-service';
 import AreaComponenent from './area.component';
 
-export default function Mapbox(props) {
+export default function Mapbox() {
 
-    const mapContainer = useRef(null);
-    const map = useRef(null);
+    const mapContainer: any = useRef(null);
+    const map: any = useRef(null);
     const [areaId, setAreaId] = useState('');
-    let getAreasData = useRef(null)
-    let getMetadataData = useRef(null)
+    let getAreasData: any = useRef(null);
+    let getMetadataData: any = useRef(null);
 
     const [getAreas] = useLazyGetAllAreasQuery()
     // console.log('console log areadata:', getAreas)
-
-
-    // if (getAreas)
-    //     getAreasData.current = getAreas
 
     const { data: getMetadata, error: MetadataError } = useGetMetadataQuery()
     // console.log('console log metadata:', getMetadata)
@@ -35,10 +31,10 @@ export default function Mapbox(props) {
         console.log('console log use effect')
         getAreas()
             .unwrap()
-            .then((fulfilled) => {
-                console.log('console log areadata:', fulfilled)
-                if (fulfilled)
-                    getAreasData.current = fulfilled
+            .then((data) => {
+                console.log('console log areadata:', data)
+                if (data)
+                    getAreasData.current = data
 
                 if (map.current) return; // initialize map only once
 
@@ -68,7 +64,7 @@ export default function Mapbox(props) {
                     // console.log('console log getMetadataData:', getMetadataData.current)
 
                     metadataData = getMetadataData.current;
-                    getAreasData.current['features']?.forEach(features => {
+                    getAreasData.current.features?.forEach(features => {
                         featureCollection = features;
 
                         map.current.addSource(features.id, {
@@ -109,7 +105,7 @@ export default function Mapbox(props) {
     }, [])
 
     // Events
-    function cardPressed(areaId) {
+    function cardPressed(areaId: number) {
         console.log('console log cardPressed from mapbox', areaId)
         getAreasData.current['features']?.forEach(features => {
             if (features.id == areaId) {
@@ -118,8 +114,8 @@ export default function Mapbox(props) {
         })
     }
 
-    function areaIdClicked(areaid) {
-        setAreaId(areaid)
+    function areaIdClicked(areaid: number) {
+        setAreaId(areaid.toString())
         console.log("console log areaIdClicked from mapbox", areaId)
     }
 

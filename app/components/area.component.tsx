@@ -8,22 +8,11 @@ import styles from './area.module.scss';
 import AreaCard from './area-card.component'
 import Forecast from '../models/forecast';
 
-export default function AreaComponent(props) {
+export default function AreaComponent(props: any) {
 
-    // useEffect(() => {
-    //     if (document.getElementById("areaScrollContainer"))
-    //     document.getElementById("areaScrollContainer").onscrollend = (event) => {
-    //         console.log('console log scroll end event', event.target["scrollTop"])
-    //         // var element = document.getElementById(productid);
-    //     };
-    //     return () => {
-    //         document.removeEventListener("scrollend", event => { });
-    //     }
-    // }, []);
-
+    let forecast: any = useRef(null)
     const { data: getForecastdata, error: ForecastError, isLoading } = useGetForecastsQuery()
 
-    let forecast = useRef(null)
     if (getForecastdata) {
         forecast.current = getForecastdata
         if (props.areaId) {
@@ -34,8 +23,8 @@ export default function AreaComponent(props) {
     if (isLoading) return <div></div>
 
     // Events
-    function scrollToCard(productid) {
-        var element = document.getElementById(productid);
+    function scrollToCard(productid: number) {
+        var element: any = document.getElementById(productid.toString());
         element.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     }
 
