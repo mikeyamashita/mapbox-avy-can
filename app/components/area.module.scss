@@ -1,7 +1,6 @@
 .area {
     position: absolute;
     bottom: 0px;
-    left: 25vw;
     z-index: 99;
 }
 
@@ -28,6 +27,7 @@
 
 @media only screen and (min-width: 600px) {
     .area {
+        left: 25vw;
         max-width: 50vw;
     }
     .scrollshadowContainer {
