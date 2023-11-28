@@ -11,6 +11,7 @@ Features
 
 
 <br>
+deployed as a pwa to aws amplify: https://main.dvqwms1hblhmk.amplifyapp.com/
 <br>
 <br>
 <br>
