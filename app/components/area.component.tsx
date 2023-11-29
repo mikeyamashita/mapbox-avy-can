@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { ScrollShadow } from "@nextui-org/react";
 
 import { useGetForecastsQuery } from '../data/avalanche-canada-service';
@@ -15,9 +15,8 @@ export default function AreaComponent(props: any) {
 
     if (getForecastdata) {
         forecast.current = getForecastdata
-        if (props.areaId) {
+        if (props.areaId)
             areaIdClicked()
-        }
     }
 
     if (isLoading) return <div></div>

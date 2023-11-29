@@ -18,21 +18,14 @@ export default function Mapbox() {
     let getMetadataData: any = useRef(null);
 
     const [getAreas] = useLazyGetAllAreasQuery()
-    // console.log('console log areadata:', getAreas)
-
     const { data: getMetadata, error: MetadataError } = useGetMetadataQuery()
-    // console.log('console log metadata:', getMetadata)
-
     if (getMetadata)
         getMetadataData.current = getMetadata
 
     useEffect(() => {
-
-        console.log('console log use effect')
         getAreas()
             .unwrap()
             .then((data) => {
-                console.log('console log areadata:', data)
                 if (data)
                     getAreasData.current = data
 
@@ -61,9 +54,9 @@ export default function Mapbox() {
 
                     let featureCollection;
                     let metadataData;
-                    // console.log('console log getMetadataData:', getMetadataData.current)
 
                     metadataData = getMetadataData.current;
+
                     getAreasData.current.features?.forEach((features: any) => {
                         featureCollection = features;
 
@@ -106,7 +99,6 @@ export default function Mapbox() {
 
     // Events
     function cardPressed(areaId: number) {
-        console.log('console log cardPressed from mapbox', areaId)
         getAreasData.current['features']?.forEach((features: any) => {
             if (features.id == areaId) {
                 map.current.fitBounds(features.bbox)
@@ -116,7 +108,6 @@ export default function Mapbox() {
 
     function areaIdClicked(areaid: number) {
         setAreaId(areaid.toString())
-        console.log("console log areaIdClicked from mapbox", areaId)
     }
 
     return (

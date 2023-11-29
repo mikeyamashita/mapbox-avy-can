@@ -14,10 +14,10 @@ export default function AreaCard(forecastData: any) {
     return (
         <div className={styles.cardContainer}>
             <Card style={{ width: '100%' }} isBlurred>
-                <CardHeader>
+                <CardHeader className={styles.cardHeader}>
                     <div className={styles.headerContainer}>
                         <div>
-                            <h1 className="text-large font-semibold leading-none text-default-600">{forecastData.data.owner.display}</h1> &nbsp; - &nbsp;
+                            <h1 className="text-large font-semibold leading-none text-default-600">{forecastData.data.owner.display}</h1>
                             <h1 className="text-medium tracking-tight text-default-400">{format(new Date(forecastData.data.report.dateIssued), 'MMMM do yyyy, h:mm:ss a')}</h1>
                         </div>
                         <Button
@@ -28,10 +28,10 @@ export default function AreaCard(forecastData: any) {
                         </Button>
                     </div>
                 </CardHeader>
-                <CardBody>
+                <CardBody className={styles.cardBody}>
                     <div dangerouslySetInnerHTML={{ __html: forecastData.data.report.highlights }}></div>
                 </CardBody>
-                <CardFooter>
+                <CardFooter className={styles.cardFooter}>
                     <div className={styles.ratingsContainer}>
                         <div className={styles.alpContainer}>
                             <p className="text-medium font-semibold text-default-600">{forecastData.data.report.dangerRatings[0].ratings.alp.display}</p>
