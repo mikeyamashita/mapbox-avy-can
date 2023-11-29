@@ -8,6 +8,7 @@ import './globals.scss'
 const APP_NAME = "AvyMap Test";
 const APP_DEFAULT_TITLE = "Mapbox Nextjs";
 const APP_TITLE_TEMPLATE = "%s - PWA Test App";
+const APP_DESCRIPTION = "Best PWA app in the world!";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
@@ -15,6 +16,26 @@ export const metadata: Metadata = {
     default: APP_DEFAULT_TITLE,
     template: APP_TITLE_TEMPLATE,
   },
+  description: APP_DESCRIPTION,
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: APP_DEFAULT_TITLE,
+    // startUpImage: [],
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    siteName: APP_NAME,
+    title: {
+      default: APP_DEFAULT_TITLE,
+      template: APP_TITLE_TEMPLATE,
+    },
+    description: APP_DESCRIPTION,
+  }
 };
 
 const inter = Inter({ subsets: ['latin'] })
