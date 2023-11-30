@@ -13,7 +13,7 @@ export default function AreaCard(forecastData: any) {
 
     return (
         <div className={styles.cardContainer}>
-            <Card style={{ width: '100%' }} isBlurred>
+            <Card style={{ width: '100%' }}>
                 <CardHeader className={styles.cardHeader}>
                     <div className={styles.headerContainer}>
                         <div>
