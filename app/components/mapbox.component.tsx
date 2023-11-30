@@ -16,6 +16,7 @@ export default function Mapbox() {
     const [areaId, setAreaId] = useState('');
     let getAreasData: any = useRef(null);
     let getMetadataData: any = useRef(null);
+    let displayMode: any = useRef('browser tab');
 
     const [getAreas] = useLazyGetAllAreasQuery()
     const { data: getMetadata, error: MetadataError } = useGetMetadataQuery()
@@ -23,6 +24,14 @@ export default function Mapbox() {
         getMetadataData.current = getMetadata
 
     useEffect(() => {
+        if (window) {
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                displayMode.current = 'standalone';
+            }
+            // Log launch display mode to analytics
+            console.log('console log DISPLAY_MODE_LAUNCH:', displayMode.current);
+        }
+
         getAreas()
             .unwrap()
             .then((data) => {

@@ -4,6 +4,12 @@
     z-index: 99;
 }
 
+.areaStandalone {
+    position: absolute;
+    bottom: -60px;
+    z-index: 99;
+}
+
 .scrollshadowContainer {
     -ms-scroll-snap-destination: 0 0;
     scroll-snap-destination: 0 0;

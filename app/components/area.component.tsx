@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ScrollShadow } from "@nextui-org/react";
 
 import { useGetForecastsQuery } from '../data/avalanche-canada-service';
@@ -11,7 +11,16 @@ import Forecast from '../models/forecast';
 export default function AreaComponent(props: any) {
 
     let forecast: any = useRef(null)
+    let displayMode: any = useRef('browser tab');
     const { data: getForecastdata, error: ForecastError, isLoading } = useGetForecastsQuery()
+
+    useEffect(() => {
+        if (window) {
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                displayMode.current = 'standalone';
+            }
+        }
+    }, [])
 
     if (getForecastdata) {
         forecast.current = getForecastdata
@@ -33,7 +42,7 @@ export default function AreaComponent(props: any) {
     }
 
     return (
-        <div className={styles.area}>
+        <div className={(displayMode.current == 'standalone') ? styles.areaStandalone : styles.area}>
             <div className={styles.scrollshadowContainer}>
                 <ScrollShadow id="areaScrollContainer" hideScrollBar className={styles.scrollshadowContainer}>
                     {forecast.current?.map((product: Forecast) => (
