@@ -45,7 +45,8 @@ export default function AreaComponent(props: any) {
     }
 
     return (
-        <div className={((displayMode.current == 'standalone' || device == 'iphone') || (device == 'ipad' || device == 'ipod')) ? styles.areaStandalone : styles.area}>
+        <div className={(displayMode.current == 'standalone' && device == 'IOS') ? styles.areaStandalone : styles.area}>
+            {/* <div>{device}</div> */}
             <div className={styles.scrollshadowContainer}>
                 <ScrollShadow id="areaScrollContainer" hideScrollBar className={styles.scrollshadowContainer}>
                     {forecast.current?.map((product: Forecast) => (

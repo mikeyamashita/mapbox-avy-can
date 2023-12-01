@@ -7,11 +7,14 @@ const useDeviceDetection = () => {
     useEffect(() => {
         const handleDeviceDetection = () => {
             const userAgent = navigator.userAgent.toLowerCase();
-            const isMobile = /iphone|ipad|ipod|android|blackberry|windows phone/g.test(userAgent);
-            const isTablet = /(ipad|tablet|playbook|silk)|(android(?!.*mobile))/g.test(userAgent);
+            const isMobile = /android|blackberry|windows phone/g.test(userAgent);
+            const isIOS = /iphone|ipad|ipod/g.test(userAgent);
+            const isTablet = /(tablet|playbook|silk)|(android(?!.*mobile))/g.test(userAgent);
 
             if (isMobile) {
                 setDevice('Mobile');
+            } else if (isIOS) {
+                setDevice('IOS');
             } else if (isTablet) {
                 setDevice('Tablet');
             } else {
