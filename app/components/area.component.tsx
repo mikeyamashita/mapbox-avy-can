@@ -7,14 +7,17 @@ import { useGetForecastsQuery } from '../data/avalanche-canada-service';
 import styles from './area.module.scss';
 import AreaCard from './area-card.component'
 import Forecast from '../models/forecast';
+import useDeviceDetection from '../utilities/useDeviceDetection';
 
 export default function AreaComponent(props: any) {
 
     let forecast: any = useRef(null)
     let displayMode: any = useRef('browser tab');
     const { data: getForecastdata, error: ForecastError, isLoading } = useGetForecastsQuery()
+    const device = useDeviceDetection();
 
     useEffect(() => {
+        console.log('console log device:', device)
         if (window) {
             if (window.matchMedia('(display-mode: standalone)').matches) {
                 displayMode.current = 'standalone';
@@ -42,7 +45,8 @@ export default function AreaComponent(props: any) {
     }
 
     return (
-        <div className={(displayMode.current == 'standalone') ? styles.areaStandalone : styles.area}>
+        <div className={(displayMode.current == 'standalone' || device != 'android') ? styles.areaStandalone : styles.area}>
+            {device}
             <div className={styles.scrollshadowContainer}>
                 <ScrollShadow id="areaScrollContainer" hideScrollBar className={styles.scrollshadowContainer}>
                     {forecast.current?.map((product: Forecast) => (
