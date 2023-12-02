@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Button } from "@nextui-org/react";
 import { format } from 'date-fns';
 import { Navigation2 } from 'react-feather';
+import { useRouter } from 'next/navigation'
 
 import styles from './area.module.scss';
 
@@ -11,13 +12,20 @@ export default function AreaCard(forecastData: any) {
 
     if (forecastData.isLoading) return <div style={{ height: '100px', padding: '10px', margin: '20px' }}></div>
 
+    const router = useRouter()
+
+    // Events
+    function navigateToForecast(productid: string) {
+        router.push('/forecast/' + productid)
+    }
+
     return (
         <div className={styles.cardContainer}>
-            <Card style={{ width: '100%' }} className='light'>
+            <Card style={{ width: '100%' }} className='light' isPressable onPress={() => navigateToForecast(forecastData.data.id)}>
                 <CardHeader className={styles.cardHeader}>
                     <div className={styles.headerContainer}>
                         <div>
-                            <h1 className="text-large font-semibold leading-none text-default-600">{forecastData.data.owner.display}</h1>
+                            <h1 className="text-large font-semibold leading-none text-default-600" style={{ display: 'flex', justifyContent: 'start' }}> {forecastData.data.owner.display}</h1>
                             <h1 className="text-medium tracking-tight text-default-400">{format(new Date(forecastData.data.report.dateIssued), 'MMMM do yyyy, h:mm:ss a')}</h1>
                         </div>
                         <Button

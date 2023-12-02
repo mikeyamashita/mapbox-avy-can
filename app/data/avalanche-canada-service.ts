@@ -7,7 +7,7 @@ import Point from '../models/point'
 
 // Define a service using a base URL and expected endpoints
 export const AvalancheCanadaApi = createApi({
-    reducerPath: 'getAreas',
+    reducerPath: 'avycanApi',
     baseQuery: fetchBaseQuery({ baseUrl: "https://api.avalanche.ca/forecasts/en/" }),
     endpoints: (builder) => ({
         getAllAreas: builder.query<Area, void>({
@@ -22,9 +22,15 @@ export const AvalancheCanadaApi = createApi({
         getForecastByPoint: builder.query<Forecast, Point>({
             query: (point: Point) => `products/point/?'lat='${point.lat}&'long='${point.long}`,
         }),
+        getForecastByProductId: builder.query<Forecast, string>({
+            query: (productid: string) => `products/${productid}`,
+        }),
     }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetAllAreasQuery, useLazyGetAllAreasQuery, useGetMetadataQuery, useGetForecastsQuery, useGetForecastByPointQuery } = AvalancheCanadaApi;
+export const {
+    useGetAllAreasQuery, useLazyGetAllAreasQuery,
+    useGetMetadataQuery,
+    useGetForecastsQuery, useGetForecastByPointQuery, useGetForecastByProductIdQuery } = AvalancheCanadaApi;
